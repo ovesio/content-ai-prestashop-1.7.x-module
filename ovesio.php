@@ -91,20 +91,64 @@ class Ovesio extends Module
     {
         $model = new OvesioModel();
 
-        return parent::install() &&
-            $model->install() &&
-            $model->installConfig() &&
-            $this->registerHook('moduleRoutes') &&
-            $this->registerHook('actionObjectProductUpdateAfter') &&
-            $this->registerHook('actionObjectCategoryUpdateAfter') &&
-            $this->registerHook('actionObjectFeatureUpdateAfter') &&
-            $this->registerHook('actionObjectFeatureValueAddAfter') &&
-            $this->registerHook('actionObjectFeatureValueUpdateAfter') &&
-            $this->registerHook('actionObjectAttributeGroupUpdateAfter') &&
-            $this->registerHook('actionObjectProductAttributeAddAfter') &&
-            $this->registerHook('actionObjectProductAttributeUpdateAfter') &&
-            $this->registerHook('displayDashboardToolbarTopMenu') &&
-            $this->registerHook('actionAdminControllerSetMedia');
+        if (!parent::install()) {
+            $this->_errors[] = 'Parent install failed';
+            return false;
+        }
+        if (!$model->install()) {
+            $this->_errors[] = 'Model install failed';
+            return false;
+        }
+        if (!$model->installConfig()) {
+            $this->_errors[] = 'Model config failed';
+            return false;
+        }
+        if (!$this->registerHook('moduleRoutes')) {
+            $this->_errors[] = 'Register hook moduleRoutes failed';
+            return false;
+        }
+        if (!$this->registerHook('actionObjectProductUpdateAfter')) {
+            $this->_errors[] = 'Register hook actionObjectProductUpdateAfter failed';
+            return false;
+        }
+        if (!$this->registerHook('actionObjectCategoryUpdateAfter')) {
+            $this->_errors[] = 'Register hook actionObjectCategoryUpdateAfter failed';
+            return false;
+        }
+        if (!$this->registerHook('actionObjectFeatureUpdateAfter')) {
+            $this->_errors[] = 'Register hook actionObjectFeatureUpdateAfter failed';
+            return false;
+        }
+        if (!$this->registerHook('actionObjectFeatureValueAddAfter')) {
+            $this->_errors[] = 'Register hook actionObjectFeatureValueAddAfter failed';
+            return false;
+        }
+        if (!$this->registerHook('actionObjectFeatureValueUpdateAfter')) {
+            $this->_errors[] = 'Register hook actionObjectFeatureValueUpdateAfter failed';
+            return false;
+        }
+        if (!$this->registerHook('actionObjectAttributeGroupUpdateAfter')) {
+            $this->_errors[] = 'Register hook actionObjectAttributeGroupUpdateAfter failed';
+            return false;
+        }
+        if (!$this->registerHook('actionObjectProductAttributeAddAfter')) {
+            $this->_errors[] = 'Register hook actionObjectProductAttributeAddAfter failed';
+            return false;
+        }
+        if (!$this->registerHook('actionObjectProductAttributeUpdateAfter')) {
+            $this->_errors[] = 'Register hook actionObjectProductAttributeUpdateAfter failed';
+            return false;
+        }
+        if (!$this->registerHook('displayDashboardToolbarTopMenu')) {
+            $this->_errors[] = 'Register hook displayDashboardToolbarTopMenu failed';
+            return false;
+        }
+        if (!$this->registerHook('actionAdminControllerSetMedia')) {
+            $this->_errors[] = 'Register hook actionAdminControllerSetMedia failed';
+            return false;
+        }
+
+        return true;
     }
 
     public function hookModuleRoutes()

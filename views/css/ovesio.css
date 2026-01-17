@@ -2572,3 +2572,12 @@ select.ov-form-control-lg {
   margin-bottom: 0px !important;
   font-size: 14px;
 }
+
+/* Hide the Help button in the toolbar */
+.page-head-toolbar .btn.btn-outline-secondary.btn-help {
+  display: none !important;
+}
+
+.toolbarBox .btn-help {
+  display: none !important;
+}
