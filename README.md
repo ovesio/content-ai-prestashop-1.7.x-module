@@ -12,7 +12,7 @@ The Ovesio - Content AI Module integrates PrestaShop with [Ovesio.com](https://o
 
 ### Compatibility
 
-- Fully compatible with PrestaShop 8.0+
+- Fully compatible with PrestaShop 1.7+
 - Built with modern PrestaShop architecture using Symfony controllers
 
 ### Translation Capabilities
