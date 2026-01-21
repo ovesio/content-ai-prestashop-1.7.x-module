@@ -1,4 +1,4 @@
-# Ovesio AI Module for PrestaShop
+# Ovesio - Content AI Module for PrestaShop
 
 ## License and Disclaimer
 
@@ -83,7 +83,7 @@ From the AI Description Generator section:
 
 ### Step 1: Upload and Install the Module
 
-1.  **Download:** Download the zip archive called `ovesio.zip` from the [GitHub repository](https://github.com/ovesio/ovesio-translate-prestashop-1.7.x/releases) releases section.
+1.  **Download** the latest zip archive called `ovesio.zip` from the [Releases](https://github.com/ovesio/content-ai-prestashop-1.7.x-module/releases) section.
 2.  **Upload:**
     *   Log in to your PrestaShop Admin Panel (Back Office).
     *   Navigate to **Improve** > **Modules** > **Module Manager**.
