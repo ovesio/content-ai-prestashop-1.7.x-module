@@ -29,7 +29,7 @@ class Ovesio extends Module
 
         parent::__construct();
 
-        $this->displayName = $this->l('Ovesio AI');
+        $this->displayName = $this->l('Ovesio - Content AI');
         $this->description = $this->l('AI Content Generation for PrestaShop');
 
         // Load language strings
