@@ -190,6 +190,7 @@ In addition to automatic processing via cron, you can manually send entries to O
 - Descriptions, meta tags, and translations are executed asynchronously in the background
 - Operations can be triggered once or on every update, based on configuration
 - Translations are processed once unless content is modified
+- Use the **Manual Actions** buttons in Products, Categories, Attributes, and Features grids to manually send entries for processing
 - Use the activity list to monitor processing status and errors
 - Ensure cron is set up for full automation
 
