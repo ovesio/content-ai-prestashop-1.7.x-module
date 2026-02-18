@@ -38,7 +38,7 @@ class Ovesio extends Module
         // Define tabs
         $tabNames = [];
         foreach (Language::getLanguages(true) as $lang) {
-            $tabNames[$lang['locale']] = 'Ovesio AI - Activity List';
+            $tabNames[$lang['locale']] = $this->l('Ovesio AI - Activity List');
         }
 
         $this->tabs = [
