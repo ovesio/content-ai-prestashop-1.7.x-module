@@ -38,13 +38,13 @@ class Ovesio extends Module
         // Define tabs
         $tabNames = [];
         foreach (Language::getLanguages(true) as $lang) {
-            $tabNames[$lang['locale']] = $this->l('Ovesio AI');
+            $tabNames[$lang['locale']] = 'Ovesio AI - Activity List';
         }
 
         $this->tabs = [
             [
-                'route_name' => 'admin_ovesio_configure',
-                'class_name' => 'AdminOvesioConfigure',
+                'route_name' => 'admin_ovesio_activity_list',
+                'class_name' => 'AdminOvesioActivityList',
                 'visible' => true,
                 'name' => $tabNames,
                 'icon' => 'science',

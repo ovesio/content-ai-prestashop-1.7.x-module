@@ -2,7 +2,7 @@
 
 ## License and Disclaimer
 
-This package is released under the MIT License. We are not responsible for any malfunction or improper behavior caused by the use of this package. This package is provided as an example integration. For production-ready integrations, we highly recommend using our official API endpoints and documentation, available at [https://ovesio.com/docs](https://ovesio.com/docs).
+This package is released under the MIT License. We are not responsible for any malfunction or improper behavior caused by the use of this package. This package is provided as an example integration. For production-ready integrations, we highly recommend using our official API endpoints and documentation, available at [https://docs.ovesio.com](https://docs.ovesio.com).
 
 ## Overview
 
@@ -232,7 +232,7 @@ Current version: 1.1.0
 
 ## Support
 
-This module is developed and maintained by Aweb Design SRL for Ovesio.com. For documentation and API references, visit [https://ovesio.com/docs](https://ovesio.com/docs).
+This module is developed and maintained by Aweb Design SRL for Ovesio.com. For documentation and API references, visit [https://docs.ovesio.com](https://docs.ovesio.com).
 
 For technical support or bug reports, you may contact Ovesio support. Support is provided on a best-effort basis.
 
