@@ -165,6 +165,26 @@ The module registers the following PrestaShop hooks:
 - `displayDashboardToolbarTopMenu` - Dashboard integration
 - `actionAdminControllerSetMedia` - Admin assets loading
 
+## Manual Processing
+
+In addition to automatic processing via cron, you can manually send entries to Ovesio using the **Manual Actions** buttons available at the top of PrestaShop's admin grids.
+
+### How to use
+
+1. Navigate to one of the supported sections in the admin panel:
+   - **Catalog > Products**
+   - **Catalog > Categories**
+   - **Catalog > Attributes & Features > Attributes**
+   - **Catalog > Attributes & Features > Features**
+2. Select one or more entries using the checkboxes on the left side of the grid.
+3. Click one of the available buttons at the top of the page (in the toolbar area):
+   - **Ovesio - Generate Description** — Generates AI descriptions (available for Products and Categories)
+   - **Ovesio - Generate MetaTags** — Generates AI meta titles, descriptions, and keywords (available for Products and Categories)
+   - **Ovesio - Translate** — Translates the selected entries into the configured languages (available for all sections)
+4. The selected entries will be queued for processing. You will see a confirmation message and can monitor the progress in the **Ovesio AI - Activity List** page.
+
+> **Note:** The available buttons depend on which features are enabled in the module configuration. If a feature (e.g., Generate Content) is disabled, the corresponding button will not appear in the toolbar.
+
 ## Usage Summary
 
 - Descriptions, meta tags, and translations are executed asynchronously in the background
