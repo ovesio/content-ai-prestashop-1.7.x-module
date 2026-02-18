@@ -229,7 +229,7 @@ class OvesioCallbackModuleFrontController extends ModuleFrontController
 
         $metatags = [];
         foreach ($content as $key => $value) {
-            if (isset($seo['product_description'][$language_id][$key])) {
+            if (isset($seo['product_lang'][$language_id][$key])) {
                 $metatags[$key] = $value;
             }
         }
@@ -247,7 +247,7 @@ class OvesioCallbackModuleFrontController extends ModuleFrontController
 
         $metatags = [];
         foreach ($content as $key => $value) {
-            if (isset($seo['category_description'][$language_id][$key])) {
+            if (isset($seo['category_lang'][$language_id][$key])) {
                 $metatags[$key] = $value;
             }
         }
