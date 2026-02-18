@@ -331,119 +331,112 @@ ovesio.updateActivityStatus = function(activityId, status) {
   });
 };
 
-ovesio.generateContent = function(e) {
-  const btn = e.target;
-  const originalHtml = btn.innerHTML;
+/**
+ * Get selected item IDs from checkboxes on the current admin page.
+ * Handles both Symfony product pages and legacy admin pages (categories, attributes, features).
+ */
+ovesio.getSelectedIds = function() {
+  const selected = [];
+
+  // 1. Symfony Products page: input[name="bulk_action_selected_products[]"]
+  document.querySelectorAll('input[name="bulk_action_selected_products[]"]:checked').forEach(function(cb) {
+    selected.push(cb.value);
+  });
+
+  if (selected.length > 0) return selected;
+
+  // 2. Symfony Grid pages (PrestaShop 1.7.7+): .js-bulk-action-checkbox
+  document.querySelectorAll('.js-bulk-action-checkbox:checked').forEach(function(cb) {
+    selected.push(cb.value);
+  });
+
+  if (selected.length > 0) return selected;
+
+  // 3. Legacy admin pages: input[name$="Box[]"] (categoryBox[], attribute_groupBox[], featureBox[])
+  document.querySelectorAll('input[name$="Box[]"]:checked').forEach(function(cb) {
+    selected.push(cb.value);
+  });
+
+  return selected;
+};
+
+/**
+ * Find the best container to insert alert messages near the listing table.
+ */
+ovesio.getAlertContainer = function() {
+  // Symfony products page
+  var container = document.querySelector('.table-responsive');
+  if (container) return container;
+
+  // Legacy pages
+  container = document.querySelector('.table-responsive-row');
+  if (container) return container;
+
+  // Fallback: first panel or main content
+  container = document.querySelector('#content .panel');
+  return container;
+};
+
+/**
+ * Shared action handler for all 3 button types.
+ */
+ovesio.doAction = function(e, activity_type) {
+  var btn = e.target.closest('button') || e.target;
+  var originalHtml = btn.innerHTML;
   btn.classList.add('ov-btn-loading');
-  btn.disable = true;
+  btn.disabled = true;
   btn.innerHTML = '<span class="ov-spinner ov-spinner-sm"></span> ' + originalHtml;
 
-  const url   = btn.getAttribute('data-href');
-  const route = btn.getAttribute('data-route');
+  var url   = btn.getAttribute('data-href');
+  var route = btn.getAttribute('data-route');
 
-  const form = document.querySelector('form.table-responsive');
-  if (!form) {
-    console.error('Form not found');
+  var selected = this.getSelectedIds();
+
+  if (selected.length === 0) {
+    btn.classList.remove('ov-btn-loading');
+    btn.innerHTML = originalHtml;
+    btn.disabled = false;
+
+    var container = this.getAlertContainer();
+    if (container) {
+      var alert = this.buildAlert('Please select at least one item.', 'danger', 'md');
+      alert.classList.add('ov-mt-3');
+      container.parentNode.insertBefore(alert, container);
+      setTimeout(function() { alert.remove(); }, 5000);
+    }
     return;
   }
 
-  const selected = [];
-  form.querySelectorAll('.js-bulk-action-checkbox:checked').forEach(checkbox => {
-    selected.push(checkbox.value);
-  })
-
-  ajaxPost(url, { selected: selected, from: route, activity_type: 'generate_content'}).then((res) => {
+  var self = this;
+  ajaxPost(url, { selected: selected, from: route, activity_type: activity_type }).then(function(res) {
     btn.classList.remove('ov-btn-loading');
     btn.innerHTML = originalHtml;
-    btn.disable = false;
+    btn.disabled = false;
 
-    let alert;
+    var alert;
     if (res.success) {
-      alert = this.buildAlert(res.message, 'success', 'md');
+      alert = self.buildAlert(res.message, 'success', 'md');
     } else {
-      alert = this.buildAlert(res.message, 'danger', 'md');
+      alert = self.buildAlert(res.message, 'danger', 'md');
     }
 
     alert.classList.add('ov-mt-3');
-    form.parentNode.insertBefore(alert, form);
-    setTimeout(() => alert.remove(), 5000);
+    var container = self.getAlertContainer();
+    if (container) {
+      container.parentNode.insertBefore(alert, container);
+    }
+    setTimeout(function() { alert.remove(); }, 5000);
   });
+};
+
+ovesio.generateContent = function(e) {
+  this.doAction(e, 'generate_content');
 }
 
 ovesio.generateSeo = function(e) {
-  const btn = e.target;
-  const originalHtml = btn.innerHTML;
-  btn.classList.add('ov-btn-loading');
-  btn.disable = true;
-  btn.innerHTML = '<span class="ov-spinner ov-spinner-sm"></span> ' + originalHtml;
-
-  const url   = btn.getAttribute('data-href');
-  const route = btn.getAttribute('data-route');
-
-  const form = document.querySelector('form.table-responsive');
-  if (!form) {
-    console.error('Form not found');
-    return;
-  }
-
-  const selected = [];
-  form.querySelectorAll('.js-bulk-action-checkbox:checked').forEach(checkbox => {
-    selected.push(checkbox.value);
-  })
-
-  ajaxPost(url, { selected: selected, from: route, activity_type: 'generate_seo'}).then((res) => {
-    btn.classList.remove('ov-btn-loading');
-    btn.innerHTML = originalHtml;
-    btn.disable = false;
-
-    let alert;
-    if (res.success) {
-      alert = this.buildAlert(res.message, 'success', 'md');
-    } else {
-      alert = this.buildAlert(res.message, 'danger', 'md');
-    }
-
-    alert.classList.add('ov-mt-3');
-    form.parentNode.insertBefore(alert, form);
-    setTimeout(() => alert.remove(), 5000);
-  });
+  this.doAction(e, 'generate_seo');
 }
 
 ovesio.translate = function(e) {
-  const btn = e.target;
-  const originalHtml = btn.innerHTML;
-  btn.classList.add('ov-btn-loading');
-  btn.disable = true;
-  btn.innerHTML = '<span class="ov-spinner ov-spinner-sm"></span> ' + originalHtml;
-
-  const url   = btn.getAttribute('data-href');
-  const route = btn.getAttribute('data-route');
-
-  const form = document.querySelector('form.table-responsive');
-  if (!form) {
-    console.error('Form not found');
-    return;
-  }
-
-  const selected = [];
-  form.querySelectorAll('.js-bulk-action-checkbox:checked').forEach(checkbox => {
-    selected.push(checkbox.value);
-  })
-
-  ajaxPost(url, { selected: selected, from: route, activity_type: 'translate'}).then((res) => {
-    btn.classList.remove('ov-btn-loading');
-    btn.innerHTML = originalHtml;
-    btn.disable = false;
-
-    let alert;
-    if (res.success) {
-      alert = this.buildAlert(res.message, 'success', 'md');
-    } else {
-      alert = this.buildAlert(res.message, 'danger', 'md');
-    }
-
-    alert.classList.add('ov-mt-3');
-    form.parentNode.insertBefore(alert, form);
-    setTimeout(() => alert.remove(), 5000);
-  });
+  this.doAction(e, 'translate');
 }
